@@ -8,7 +8,7 @@
     </div>
   </div>
   {{ oddEven }}
-  <input type="text"  placeholder="Type something..." v-model="text" />
+  <input type="text"  placeholder="Type something..." v-model="text" v-autofocus/>
   {{ text }}
   <h4> Object </h4>
   {{ counterData.count }}
@@ -18,6 +18,7 @@
 
 <script setup>
 import { ref, reactive, computed, watch, onBeforeMount, onMounted, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated } from 'vue'
+import { vAutofocus } from '../directives/vAutofocus'
 
 const counter = ref(0)
 const counterTitle = ref('Counter Title')

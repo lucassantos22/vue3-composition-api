@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-  <h3> {{ counterTitle }}: </h3>
+  <h3 ref="counterTitleRef"> {{ counterTitle }}: </h3>
     <div>
       <button class="btn" @click="decreaseCounter($event)">-</button>
       <span class="counter"> {{ counter }} </span>
@@ -17,12 +17,14 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, watch, onBeforeMount, onMounted, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated } from 'vue'
+import { ref, reactive, nextTick, computed, watch, onBeforeMount, onMounted, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated } from 'vue'
 import { vAutofocus } from '../directives/vAutofocus'
 
 const counter = ref(0)
 const counterTitle = ref('Counter Title')
 const text = ref('')
+
+const counterTitleRef = ref(null)
 
 const counterData = reactive({
   count: 0,
@@ -42,8 +44,10 @@ const oddEven = computed(() => {
   return 'odd'
 })
 
-function increaseCounter() {
+async function increaseCounter() {
   counter.value++
+  await nextTick()
+  alert('Increased!')
 }
 
 function decreaseCounter(e) {
@@ -57,6 +61,7 @@ onBeforeMount(() => {
 
 onMounted(() => {
   console.log('onMounted')
+  console.log(counterTitleRef.value.offsetWidth)
 })
 
 onBeforeUnmount(() => {

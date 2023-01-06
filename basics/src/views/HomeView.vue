@@ -14,11 +14,14 @@
   {{ counterData.count }}
   <input type="text"  placeholder="Counter data title" v-model="counterData.title" />
   {{ counterData.title }}
+  <Modal />
 </template>
 
 <script setup>
 import { ref, reactive, nextTick, computed, watch, onBeforeMount, onMounted, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated } from 'vue'
-import { vAutofocus } from '../directives/vAutofocus'
+import { vAutofocus } from '@/directives/vAutofocus'
+
+import Modal from '@/components/Modal.vue'
 
 const counter = ref(0)
 const counterTitle = ref('Counter Title')

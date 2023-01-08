@@ -1,4 +1,5 @@
 <template>
+  <pre>{{ userData.name }} @{{ userData.username }}</pre>
   <nav>
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/posts">Posts</RouterLink>
@@ -9,6 +10,18 @@
     </keep-alive>
   </router-view>
 </template>
+
+<script setup>
+import { reactive, provide } from 'vue'
+
+const userData = reactive({
+  name: 'Lucas',
+  username: 'caslu34'
+})
+
+provide('userData', userData)
+
+</script>
 
 <style scoped>
 header {

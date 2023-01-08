@@ -14,7 +14,10 @@
   {{ counterData.count }}
   <input type="text"  placeholder="Counter data title" v-model="counterData.title" />
   {{ counterData.title }}
-  <Modal />
+  <Modal title="My Modal Title!" @showAlert="showAlert">
+    <template v-slot:img>Imagem</template>
+    <p>Modal Content!!!</p>
+  </Modal>
 </template>
 
 <script setup>
@@ -56,6 +59,10 @@ async function increaseCounter() {
 function decreaseCounter(e) {
   console.log(e)
   counter.value--
+}
+
+function showAlert() {
+  alert('Alert!!!')
 }
 
 onBeforeMount(() => {

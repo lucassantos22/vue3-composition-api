@@ -22,9 +22,11 @@
 
 <script setup>
 import { ref, reactive, nextTick, computed, watch, onBeforeMount, onMounted, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated } from 'vue'
+import { useLog } from '@/use/useLog';
 import { vAutofocus } from '@/directives/vAutofocus'
-
 import Modal from '@/components/Modal.vue'
+
+const { logMessage } = useLog()
 
 const counter = ref(0)
 const counterTitle = ref('Counter Title')
@@ -66,12 +68,14 @@ function showAlert() {
 }
 
 onBeforeMount(() => {
+  logMessage()
   console.log('onBeforeMount')
 })
 
 onMounted(() => {
   console.log('onMounted')
   console.log(counterTitleRef.value.offsetWidth)
+  onMounted()
 })
 
 onBeforeUnmount(() => {

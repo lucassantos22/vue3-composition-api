@@ -6,7 +6,6 @@
       <span class="counter"> {{ counter }} </span>
       <button class="btn"  @click="increaseCounter">+</button>
     </div>
-  </div>
   {{ oddEven }}
   <input type="text"  placeholder="Type something..." v-model="text" v-autofocus/>
   {{ text }}
@@ -18,15 +17,25 @@
     <template v-slot:img>Imagem</template>
     <p>Modal Content!!!</p>
   </Modal>
+  <hr />
+  <h1>Store Counter</h1>
+    <div>
+        <button class="btn" @click="counterStore.increment">+</button>
+        <p class="counter"> Count: {{ counterStore.count }} </p>
+        <p>Double count: {{ counterStore.doubleCount }}</p>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { ref, reactive, nextTick, computed, watch, onBeforeMount, onMounted, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated } from 'vue'
 import { useLog } from '@/use/useLog';
+import { useCounterStore } from '@/stores/counter';
 import { vAutofocus } from '@/directives/vAutofocus'
 import Modal from '@/components/Modal.vue'
 
 const { logMessage } = useLog()
+const counterStore = useCounterStore()
 
 const counter = ref(0)
 const counterTitle = ref('Counter Title')

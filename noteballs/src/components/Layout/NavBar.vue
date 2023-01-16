@@ -1,6 +1,7 @@
 <template>
     <nav class="navbar is-success" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
+
         <div class="navbar-item is-size-5 is-family-monospace">
             Noteballs
         </div>

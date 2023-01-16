@@ -8,7 +8,7 @@
 
         <div class="field is-grouped is-grouped-right">
         <div class="control">
-            <button class="button is-link has-background-success">Add New Note</button>
+            <button class="button is-link is-success">Add New Note</button>
         </div>
         </div>
 

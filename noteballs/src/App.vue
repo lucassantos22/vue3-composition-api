@@ -1,7 +1,8 @@
 <template>
-  <NavBar ></NavBar>
-
-  <RouterView></RouterView>
+  <NavBar />
+  <div class="container is-max-desktop px-2 py-2">
+    <RouterView />
+  </div>
 </template>
 
 <script setup>

@@ -34,20 +34,13 @@
 <script setup>
 import { ref } from 'vue'
 import Note from '@/components/Notes/Note.vue'
+import { useNotesStore } from '@/stores/notes'
+
+const storeNotes = useNotesStore()
+const notes = storeNotes.notes
 
 const newNote = ref('')
 const newNoteRef = ref(null)
-
-const notes = ref([
-    {
-        id: 'id1',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.'
-    },
-    {
-        id: 'id2',
-        content: 'Lorem ipsum dolor sit amet, consectetur'
-    }
-])
 
 function addNote() {
     const note = {

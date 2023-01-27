@@ -47,7 +47,7 @@ function addNote() {
         id: new Date().getTime().toString(),
         content: newNote.value
     }
-    notes.value.unshift(note)
+    storeNotes.addNote(note)
     newNote.value = ''
     newNoteRef.value.focus()
 }

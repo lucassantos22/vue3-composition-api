@@ -13,9 +13,9 @@ export const useNotesStore = defineStore('notes', () => {
         content: 'Lorem ipsum dolor sit amet, consectetur'
     }
   ])
-  function increment() {
-    count.value++
+  function addNote(note) {
+    notes.value.unshift(note)
   }
 
-  return { count, increment, notes }
+  return { count, addNote, notes }
 })

@@ -5,7 +5,7 @@
             <textarea
                 class="textarea"
                 placeholder="Add a new note..."
-                v-model="newNote"
+                v-model.trim="newNote"
                 ref="newNoteRef"
             />
         </div>
@@ -26,7 +26,6 @@
             v-for="note in notes"
             :key="note.id"
             :note="note"
-            @delete="handleDeleteNote"
         />
     </div>
 </template>
@@ -50,10 +49,6 @@ function addNote() {
     storeNotes.addNote(note)
     newNote.value = ''
     newNoteRef.value.focus()
-}
-
-function handleDeleteNote(id) {
-    notes.value = notes.value.filter(note => note.id !== id)
 }
 
 </script>

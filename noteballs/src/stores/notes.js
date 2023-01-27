@@ -2,7 +2,6 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useNotesStore = defineStore('notes', () => {
-  const count = ref(0)
   const notes = ref([
     {
         id: 'id1',
@@ -16,6 +15,10 @@ export const useNotesStore = defineStore('notes', () => {
   function addNote(note) {
     notes.value.unshift(note)
   }
+  function deleteNote(id){
+    const newNoteList = notes.value.filter(note => note.id !== id)
+    notes.value = newNoteList
+  }
 
-  return { count, addNote, notes }
+  return { notes, addNote, deleteNote }
 })

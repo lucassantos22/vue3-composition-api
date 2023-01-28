@@ -36,7 +36,7 @@ import Note from '@/components/Notes/Note.vue'
 import { useNotesStore } from '@/stores/notes'
 
 const storeNotes = useNotesStore()
-const notes = storeNotes.notes
+const notes = storeNotes.getNotes
 
 const newNote = ref('')
 const newNoteRef = ref(null)

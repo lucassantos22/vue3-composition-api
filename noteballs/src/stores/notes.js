@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useNotesStore = defineStore('notes', () => {
@@ -16,9 +16,10 @@ export const useNotesStore = defineStore('notes', () => {
     notes.value.unshift(note)
   }
   function deleteNote(id){
-    const newNoteList = notes.value.filter(note => note.id !== id)
-    notes.value = newNoteList
+    notes.value = notes.value.filter(note => note.id !== id)
   }
 
-  return { notes, addNote, deleteNote }
+  const getNotes = computed(() => notes)
+
+  return { notes, getNotes, addNote, deleteNote }
 })

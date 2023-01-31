@@ -1,27 +1,18 @@
 <template>
     <div class="notes">
-        <div class="field">
-        <div class="control">
-            <textarea
-                class="textarea"
-                placeholder="Add a new note..."
-                v-model.trim="newNote"
-                ref="newNoteRef"
-            />
-        </div>
-        </div>
-
-        <div class="field is-grouped is-grouped-right">
-        <div class="control">
-            <button
+        <AddEditNote
+            v-model="newNote"
+        >
+            <template #buttons>
+                <button
                 @click="addNote"
                 :disabled="!newNote"
                 class="button is-link is-success"
-            >
-                Add New Note
-            </button>
-        </div>
-        </div>
+                >
+                    Add New Note
+                </button>
+            </template>
+        </AddEditNote>
         <Note
             v-for="note in notes"
             :key="note.id"
@@ -32,7 +23,10 @@
 
 <script setup>
 import { ref } from 'vue'
+
 import Note from '@/components/Notes/Note.vue'
+import AddEditNote from '@/components/Notes/AddEditNote.vue'
+
 import { useNotesStore } from '@/stores/notes'
 
 const storeNotes = useNotesStore()

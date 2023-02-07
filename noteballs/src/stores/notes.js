@@ -15,8 +15,9 @@ export const useNotesStore = defineStore('notes', () => {
   function addNote(note) {
     notes.value.unshift(note)
   }
-  function editNote() {
-    
+  function updateNote(id, content) {
+    const note = notes.value.find(note => note.id == id)
+    note.content = content
   }
   function deleteNote(id){
     notes.value = notes.value.filter(note => note.id !== id)
@@ -28,5 +29,5 @@ export const useNotesStore = defineStore('notes', () => {
 
   const getNotes = computed(() => notes)
 
-  return { notes, getNotes, addNote, deleteNote, getNoteContent }
+  return { notes, getNotes, addNote, updateNote, deleteNote, getNoteContent }
 })

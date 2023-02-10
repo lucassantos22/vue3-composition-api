@@ -28,6 +28,8 @@
         </footer>
         <ModalDeleteNote
             v-if="modals.deleteNote"
+            @closeDeleteModal="modals.deleteNote = false"
+            @handleDeleteNoteModal="handleDeleteModal"
         />
     </div>
 </template>
@@ -53,5 +55,10 @@ const props = defineProps({
         required: true
     }
 })
+
+function handleDeleteModal() {
+    storeNotes.deleteNote(props.note.id)
+    modals.deleteNote = false
+}
 
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="modal is-active">
     <div class="modal-background"></div>
-    <div class="modal-card">
+    <div class="modal-card" ref="modalRef">
         <header class="modal-card-head">
             <p class="modal-card-title">Delete Note?</p>
             <button class="delete" aria-label="close" @click="emit('closeDeleteModal')"></button>
@@ -18,7 +18,15 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { onClickOutside } from '@vueuse/core'
+
+const modalRef = ref(null)
 
 const emit = defineEmits(['closeDeleteModal', 'handleDeleteNoteModal'])
+
+onClickOutside(modalRef, () => {
+    emit('closeDeleteModal')
+})
 
 </script>

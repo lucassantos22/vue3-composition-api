@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
 const modalRef = ref(null)
@@ -27,6 +27,12 @@ const emit = defineEmits(['closeDeleteModal', 'handleDeleteNoteModal'])
 
 onClickOutside(modalRef, () => {
     emit('closeDeleteModal')
+})
+
+onMounted(() => {
+    document.addEventListener('keyup', e => {
+        if (e.key == 'Escape') emit('closeDeleteModal')
+    })
 })
 
 </script>

@@ -1,19 +1,21 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, onSnapshot } from 'firebase/firestore'
 import { db } from '@/js/firebase'
 
 export const useNotesStore = defineStore('notes', () => {
   const notes = ref([])
-  async function getAllNotes(){
-    const querySnapshot = await getDocs(collection(db, "notes"));
-    console.log(querySnapshot)
-    querySnapshot.forEach((note) => {
-      notes.value.push({
-        id: note.id,
-        content: note.data().content
+  async function getAllNotes() {
+    onSnapshot(collection(db, "notes"), (querySnapshot) => {
+      let notesList = []
+      querySnapshot.forEach((note) => {
+        notesList.push({
+          id: note.id,
+          content: note.data().content
+        });
       })
-    });
+      notes.value = notesList
+    })
   }
   function addNote(note) {
     notes.value.unshift(note)

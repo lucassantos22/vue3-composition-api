@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { collection, onSnapshot } from 'firebase/firestore'
+import { collection, onSnapshot, setDoc, doc } from 'firebase/firestore'
 import { db } from '@/js/firebase'
 
 export const useNotesStore = defineStore('notes', () => {
@@ -17,8 +17,10 @@ export const useNotesStore = defineStore('notes', () => {
       notes.value = notesList
     })
   }
-  function addNote(note) {
-    notes.value.unshift(note)
+  async function addNote(note) {
+    await setDoc(doc(db, "notes", note.id), {
+      content: note.content
+    });
   }
   function updateNote(id, content) {
     const note = notes.value.find(note => note.id == id)

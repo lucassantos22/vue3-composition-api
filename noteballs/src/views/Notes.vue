@@ -38,11 +38,7 @@ const newNote = ref('')
 const addEditNoteRef = ref(null)
 
 function addNote() {
-    const note = {
-        id: new Date().getTime().toString(),
-        content: newNote.value
-    }
-    storeNotes.addNote(note)
+    storeNotes.addNote(newNote.value)
     newNote.value = ''
     addEditNoteRef.value.focusTextArea()
 }

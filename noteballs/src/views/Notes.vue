@@ -15,7 +15,9 @@
                 </button>
             </template>
         </AddEditNote>
+        <progress v-if="!notesLoaded" class="progress is-large is-success" max="100" />
         <Note
+            v-else
             v-for="note in notes"
             :key="note.id"
             :note="note"
@@ -33,6 +35,7 @@ import { useNotesStore } from '@/stores/notes'
 
 const storeNotes = useNotesStore()
 const notes = storeNotes.getNotes
+const notesLoaded = storeNotes.getNotesLoaded
 
 const newNote = ref('')
 const addEditNoteRef = ref(null)

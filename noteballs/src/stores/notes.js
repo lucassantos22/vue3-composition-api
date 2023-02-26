@@ -5,6 +5,8 @@ import { db } from '@/js/firebase'
 
 export const useNotesStore = defineStore('notes', () => {
   const notes = ref([])
+  const notesLoaded = ref(false)
+
   async function getAllNotes() {
     const q = query(collection(db, 'notes'), orderBy('date', 'desc'));
     onSnapshot(q, (querySnapshot) => {
@@ -16,6 +18,7 @@ export const useNotesStore = defineStore('notes', () => {
           date: note.data().date
         });
       })
+      notesLoaded.value = true
       notes.value = notesList
     })
   }
@@ -39,6 +42,7 @@ export const useNotesStore = defineStore('notes', () => {
   }
 
   const getNotes = computed(() => notes)
+  const getNotesLoaded = computed(() => notesLoaded)
   const totalNotesCount = computed(() => notes.value.length)
   const totalCharactersCount = computed(() => {
     let count = 0
@@ -48,5 +52,5 @@ export const useNotesStore = defineStore('notes', () => {
     return count
   })
 
-  return { notes, getNotes, totalNotesCount, totalCharactersCount, getAllNotes, addNote, updateNote, deleteNote, getNoteContent }
+  return { notes, getNotes, getNotesLoaded, totalNotesCount, totalCharactersCount, getAllNotes, addNote, updateNote, deleteNote, getNoteContent }
 })

@@ -22,6 +22,9 @@
             :key="note.id"
             :note="note"
         />
+        <div v-if="!notes.length && notesLoaded" class="is-size-4 has-text-centered has-text-grey-light is-family-monospace py-6">
+            No notes here yet
+        </div>
     </div>
 </template>
 

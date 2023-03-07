@@ -15,7 +15,7 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-            <button class="button is-small is-info mt-3 ml-3">
+            <button class="button is-small is-info mt-3 ml-3" @click="storeAuth.logoutUser">
                 Logout
             </button>
         </div>
@@ -30,3 +30,10 @@
     </div>
     </nav>
 </template>
+
+<script setup>
+import { useAuthStore } from '../../stores/auth'
+
+const storeAuth = useAuthStore()
+
+</script>

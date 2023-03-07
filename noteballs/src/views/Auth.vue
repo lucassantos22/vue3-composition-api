@@ -53,6 +53,10 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
 
+import { useAuthStore } from '../stores/auth'
+
+const storeAuth = useAuthStore()
+
 const register = ref(false)
 const credentials = reactive({
     email: '',
@@ -70,6 +74,7 @@ function onSubmit() {
         return
     }
     if (register.value) {
+        storeAuth.registerUser(credentials)
         console.log('Registered!')
         return
     }

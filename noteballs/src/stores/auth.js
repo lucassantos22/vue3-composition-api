@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { createUserWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
 import { auth } from '../js/firebase'
 
@@ -14,6 +14,16 @@ export const useAuthStore = defineStore('auth', () => {
     });
   }
 
+  function loginUser({ email, password }) {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        alert(userCredential.user);
+      }
+    ).catch((error) => {
+      alert(error.message)
+    });
+  }
+
   function logoutUser() {
     signOut(auth).then(() => {
       // Sign-out successful.
@@ -22,5 +32,5 @@ export const useAuthStore = defineStore('auth', () => {
     });
   }
 
-  return { registerUser, logoutUser }
+  return { registerUser, loginUser, logoutUser }
 })

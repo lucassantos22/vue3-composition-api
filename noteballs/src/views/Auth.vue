@@ -75,10 +75,9 @@ function onSubmit() {
     }
     if (register.value) {
         storeAuth.registerUser(credentials)
-        console.log('Registered!')
         return
     }
-    console.log('Logged!')
+    storeAuth.loginUser(credentials)
 }
 
 </script>

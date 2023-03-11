@@ -14,9 +14,12 @@
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
+        <div
+            v-if="storeAuth.isLogged"
+            class="navbar-start"
+        >
             <button class="button is-small is-info mt-3 ml-3" @click="storeAuth.logoutUser">
-                Logout
+                Logout {{ storeAuth.user.email }}
             </button>
         </div>
         <div class="navbar-end">

@@ -16,18 +16,20 @@ export const useAuthStore = defineStore('auth', () => {
         const uid = userData.uid;
         user.value.id = uid
         user.value.email = userData.email
+        this.router.push('/')
         console.log('Logged in')
         return
       }
       // User is signed out
       user.value = {}
+      this.router.replace('/auth')
       console.log('Logged out')
     });
   }
   function registerUser({ email, password }) {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      alert (userCredential.user)
+      console.log (userCredential.user)
     })
     .catch((error) => {
       alert(error.message)
@@ -37,7 +39,7 @@ export const useAuthStore = defineStore('auth', () => {
   function loginUser({ email, password }) {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        alert(userCredential.user);
+        console.log(userCredential.user);
       }
     ).catch((error) => {
       alert(error.message)

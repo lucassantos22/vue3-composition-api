@@ -1,9 +1,27 @@
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
 
 import { auth } from '../js/firebase'
 
 export const useAuthStore = defineStore('auth', () => {
+  const user = ref({})
+
+  function init(){
+    onAuthStateChanged(auth, (userData) => {
+      if (userData) {
+        // User is signed in, see docs for a list of available properties
+        const uid = userData.uid;
+        user.value.id = uid
+        user.value.email = userData.email
+        console.log('Logged in')
+        return
+      }
+      // User is signed out
+      user.value = {}
+      console.log('Logged out')
+    });
+  }
   function registerUser({ email, password }) {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -32,5 +50,5 @@ export const useAuthStore = defineStore('auth', () => {
     });
   }
 
-  return { registerUser, loginUser, logoutUser }
+  return { user, init, registerUser, loginUser, logoutUser }
 })

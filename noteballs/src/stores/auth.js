@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
 
 import { auth } from '../js/firebase'
+import { useNotesStore } from '@/stores/notes'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref({})
@@ -10,6 +11,7 @@ export const useAuthStore = defineStore('auth', () => {
   const isLogged = computed(() => !!user.value.id)
 
   function init(){
+    const storeNotes = useNotesStore()
     onAuthStateChanged(auth, (userData) => {
       if (userData) {
         // User is signed in, see docs for a list of available properties
@@ -17,7 +19,7 @@ export const useAuthStore = defineStore('auth', () => {
         user.value.id = uid
         user.value.email = userData.email
         this.router.push('/')
-        console.log('Logged in')
+        storeNotes.init()
         return
       }
       // User is signed out

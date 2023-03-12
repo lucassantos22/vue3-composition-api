@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 
 import Note from '@/components/Notes/Note.vue'
 import AddEditNote from '@/components/Notes/AddEditNote.vue'
@@ -42,13 +42,6 @@ const notesLoaded = storeNotes.getNotesLoaded
 
 const newNote = ref('')
 const addEditNoteRef = ref(null)
-
-onMounted(async () => {
-    async function fetch() {
-        await storeNotes.getAllNotes()
-    }
-    await fetch()
-})
 
 function addNote() {
     storeNotes.addNote(newNote.value)

@@ -1,14 +1,22 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc, query, orderBy } from 'firebase/firestore'
+
 import { db } from '@/js/firebase'
+import { useAuthStore } from '@/stores/auth'
 
 export const useNotesStore = defineStore('notes', () => {
   const notes = ref([])
   const notesLoaded = ref(false)
+  let notesCollection
 
+  async function init() {
+    const storeAuth = useAuthStore()
+    notesCollection = collection(db, 'users', storeAuth.user.id, 'notes')
+    await getAllNotes()
+  }
   async function getAllNotes() {
-    const q = query(collection(db, 'users', 'k8a3nvNRVyPK2dOyvbnlFogKlCA3', 'notes'), orderBy('date', 'desc'));
+    const q = query(notesCollection, orderBy('date', 'desc'));
     onSnapshot(q, (querySnapshot) => {
       let notesList = []
       querySnapshot.forEach((note) => {
@@ -23,18 +31,18 @@ export const useNotesStore = defineStore('notes', () => {
     })
   }
   async function addNote(content) {
-    await addDoc(collection(db, 'users', 'k8a3nvNRVyPK2dOyvbnlFogKlCA3', 'notes'), {
+    await addDoc(notesCollection, {
       content: content,
       date: new Date().getTime().toString()
     });
   }
   async function updateNote(id, content) {
-    await updateDoc(doc(db, 'users', 'k8a3nvNRVyPK2dOyvbnlFogKlCA3', 'notes', id), {
+    await updateDoc(doc(notesCollection, id), {
       content
     });
   }
   async function deleteNote(id){
-    await deleteDoc(doc(db, 'users', 'k8a3nvNRVyPK2dOyvbnlFogKlCA3', 'notes', id));
+    await deleteDoc(doc(notesCollection, id));
   }
   function getNoteContent(id) {
     const { content } = notes.value.find(note => note.id == id)
@@ -52,5 +60,5 @@ export const useNotesStore = defineStore('notes', () => {
     return count
   })
 
-  return { notes, getNotes, getNotesLoaded, totalNotesCount, totalCharactersCount, getAllNotes, addNote, updateNote, deleteNote, getNoteContent }
+  return { init, notes, getNotes, getNotesLoaded, totalNotesCount, totalCharactersCount, getAllNotes, addNote, updateNote, deleteNote, getNoteContent }
 })

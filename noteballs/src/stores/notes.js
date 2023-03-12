@@ -8,7 +8,7 @@ export const useNotesStore = defineStore('notes', () => {
   const notesLoaded = ref(false)
 
   async function getAllNotes() {
-    const q = query(collection(db, 'notes'), orderBy('date', 'desc'));
+    const q = query(collection(db, 'users', 'k8a3nvNRVyPK2dOyvbnlFogKlCA3', 'notes'), orderBy('date', 'desc'));
     onSnapshot(q, (querySnapshot) => {
       let notesList = []
       querySnapshot.forEach((note) => {
@@ -23,18 +23,18 @@ export const useNotesStore = defineStore('notes', () => {
     })
   }
   async function addNote(content) {
-    await addDoc(collection(db, "notes"), {
+    await addDoc(collection(db, 'users', 'k8a3nvNRVyPK2dOyvbnlFogKlCA3', 'notes'), {
       content: content,
       date: new Date().getTime().toString()
     });
   }
   async function updateNote(id, content) {
-    await updateDoc(doc(db, "notes", id), {
+    await updateDoc(doc(db, 'users', 'k8a3nvNRVyPK2dOyvbnlFogKlCA3', 'notes', id), {
       content
     });
   }
   async function deleteNote(id){
-    await deleteDoc(doc(db, "notes", id));
+    await deleteDoc(doc(db, 'users', 'k8a3nvNRVyPK2dOyvbnlFogKlCA3', 'notes', id));
   }
   function getNoteContent(id) {
     const { content } = notes.value.find(note => note.id == id)

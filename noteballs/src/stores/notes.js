@@ -30,6 +30,9 @@ export const useNotesStore = defineStore('notes', () => {
       notes.value = notesList
     })
   }
+  function clearNotes() {
+    notes.value = []
+  }
   async function addNote(content) {
     await addDoc(notesCollection, {
       content: content,
@@ -60,5 +63,5 @@ export const useNotesStore = defineStore('notes', () => {
     return count
   })
 
-  return { init, notes, getNotes, getNotesLoaded, totalNotesCount, totalCharactersCount, getAllNotes, addNote, updateNote, deleteNote, getNoteContent }
+  return { init, notes, getNotes, getNotesLoaded, totalNotesCount, totalCharactersCount, getAllNotes, clearNotes, addNote, updateNote, deleteNote, getNoteContent }
 })

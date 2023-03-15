@@ -8,7 +8,10 @@ import { useAuthStore } from '@/stores/auth'
 export const useNotesStore = defineStore('notes', () => {
   const notes = ref([])
   const notesLoaded = ref(false)
+
   let notesCollection
+  let getNotesSnapshot = null
+
 
   async function init() {
     const storeAuth = useAuthStore()
@@ -17,7 +20,8 @@ export const useNotesStore = defineStore('notes', () => {
   }
   async function getAllNotes() {
     const q = query(notesCollection, orderBy('date', 'desc'));
-    onSnapshot(q, (querySnapshot) => {
+    if (getNotesSnapshot) getNotesSnapshot() // unsubscribe from any active listeners
+    getNotesSnapshot = onSnapshot(q, (querySnapshot) => {
       let notesList = []
       querySnapshot.forEach((note) => {
         notesList.push({

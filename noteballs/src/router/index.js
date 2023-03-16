@@ -28,6 +28,10 @@ const routes = [
     }
 ]
 
+router.beforeEach(async (to, from) => {
+    console.log(to)
+})
+
 export const router = createRouter({
     history: createWebHashHistory(),
     routes

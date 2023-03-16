@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
+import { useAuthStore } from '@/stores/auth'
+
 import Notes from '@/views/Notes.vue'
 import Stats from '@/views/Stats.vue'
 import Auth from '@/views/Auth.vue'
@@ -28,11 +30,17 @@ const routes = [
     }
 ]
 
-router.beforeEach(async (to, from) => {
-    console.log(to)
-})
-
 export const router = createRouter({
     history: createWebHashHistory(),
     routes
+})
+
+router.beforeEach(async (to, from) => {
+    const storeAuth = useAuthStore()
+    if (!storeAuth.isLogged && to.name !== 'auth') {
+        return { name: 'auth' }
+    }
+    if (storeAuth.isLogged && to.name === 'auth') {
+        return false
+    }
 })

@@ -26,7 +26,6 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = {}
       this.router.replace('/auth')
       storeNotes.clearNotes()
-      console.log('Logged out')
     });
   }
   function registerUser({ email, password }) {

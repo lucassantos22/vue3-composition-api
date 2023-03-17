@@ -22,7 +22,10 @@
                 Logout {{ storeAuth.user.email }}
             </button>
         </div>
-        <div class="navbar-end">
+        <div
+            v-if="storeAuth.isLogged"
+            class="navbar-end"
+        >
             <RouterLink to="/" class="navbar-item" active-class="is-active">
                 Notes
             </RouterLink>

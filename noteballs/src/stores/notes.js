@@ -12,7 +12,6 @@ export const useNotesStore = defineStore('notes', () => {
   let notesCollection
   let getNotesSnapshot = null
 
-
   async function init() {
     const storeAuth = useAuthStore()
     notesCollection = collection(db, 'users', storeAuth.user.id, 'notes')
